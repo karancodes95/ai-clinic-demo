@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask Clinic: AI Healthcare Assistant Demo</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    p.tagline { color: var(--muted); margin-bottom: 2.5rem; text-align: center; max-width: 32rem; }
+    .cards { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    a.card {
+      display: block;
+      background: var(--card);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      width: 16rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card h2 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+    .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.4; }
+    footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; text-align: center; }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>Ask Clinic</h1>
+  <p class="tagline">AI-powered clinic assistant demo. Fictional data, not a real medical service.</p>
+  <div class="cards">
+    <a class="card" href="clinic-user/">
+      <h2>Patient Demo</h2>
+      <p>Book appointments, check refills, and ask questions as a patient.</p>
+    </a>
+    <a class="card" href="clinic-admin/">
+      <h2>Admin Demo</h2>
+      <p>Staff view: beds, rosters, inventory, and chart summaries.</p>
+    </a>
+  </div>
+  <footer>
+    Built by Karan Jatav ·
+    <a href="https://github.com/karancodes95">GitHub</a> ·
+    <a href="https://www.linkedin.com/in/karanjtv/">LinkedIn</a>
+  </footer>
+</body>
+</html>

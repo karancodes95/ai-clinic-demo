@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluebell Clinic</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #007bc2;
+    --blue-dark: #005b91;
+    --navy: #12333f;
+    --ink: #1a1a1a;
+    --muted: #5a6570;
+    --soft: #f6f6f6;
+    --line: #e2e6ea;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Roboto", system-ui, Arial, sans-serif; background: #fff; color: var(--ink);
+    height: 100vh; display: flex; flex-direction: column; }
+  h1, h2, h3 { font-weight: 900; letter-spacing: -.01em; }
+  a { color: inherit; }
+
+  /* Utility bar */
+  .utility { background: #fff; color: var(--muted); font-size: 12.5px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center; padding: 7px 34px; }
+  .utility .locs, .utility .links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .utility .locs span { color: var(--ink); font-weight: 700; }
+  .utility a { text-decoration: none; color: var(--blue); }
+  .utility a:hover { text-decoration: underline; }
+
+  /* Header */
+  header { background: #fff; padding: 14px 34px; display: flex; align-items: center; gap: 28px; border-bottom: 1px solid var(--line); }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 900; color: var(--blue); text-decoration: none; }
+  .brand .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--blue); }
+  header nav { display: flex; gap: 24px; margin-left: 8px; }
+  header nav a { text-decoration: none; font-weight: 500; font-size: 15px; color: var(--ink); padding: 6px 0; border-bottom: 3px solid transparent; }
+  header nav a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+  header .spacer { flex: 1; }
+  header .search { color: var(--muted); display: flex; }
+  header .appt { background: var(--blue); color: #fff; text-decoration: none; font-weight: 700; padding: 10px 22px; border-radius: 5px; font-size: 14px; }
+  header .appt:hover { background: var(--blue-dark); }
+
+  main { flex: 1; display: flex; overflow: hidden; }
+  #left { width: 70%; overflow-y: auto; }
+
+  /* Hero */
+  .hero { position: relative; color: #fff; padding: 92px 44px 100px;
+    background: linear-gradient(90deg, rgba(0,64,102,.9), rgba(0,123,194,.5)),
+      url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1500&q=80") center/cover; }
+  .hero h1 { font-size: 48px; line-height: 1.05; margin-bottom: 16px; max-width: 640px; }
+  .hero p { font-size: 18px; max-width: 520px; opacity: .96; margin-bottom: 26px; font-weight: 400; }
+  .hero .links { display: flex; gap: 28px; flex-wrap: wrap; }
+  .hero .links a { color: #fff; text-decoration: underline; text-underline-offset: 5px; font-weight: 700; font-size: 15px; }
+  .hero .links a:hover { opacity: .85; }
+
+  /* Featured services — full-width accordion */
+  .services { padding: 48px 44px; background: var(--soft); }
+  .eyebrow { text-transform: uppercase; letter-spacing: .1em; font-size: 12px; font-weight: 700; color: var(--blue); }
+  .services h2 { color: var(--ink); font-size: 30px; margin: 6px 0 24px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 34px 40px; }
+  .svc { align-self: start; }
+  .svc summary { list-style: none; cursor: pointer; }
+  .svc summary::-webkit-details-marker { display: none; }
+  .svc summary h3 { color: var(--blue); font-size: 21px; margin-bottom: 6px; }
+  .svc summary .desc { color: var(--muted); font-size: 14px; margin-bottom: 10px; font-weight: 400; }
+  .svc summary .toggle { color: var(--blue); font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+  .svc summary .toggle svg { width: 14px; height: 14px; transition: transform .2s ease; }
+  .svc[open] summary .toggle svg { transform: rotate(180deg); }
+  .svc summary:hover h3 { text-decoration: underline; }
+  .svc .body { margin-top: 14px; }
+  .svc .body ul { list-style: none; }
+  .svc .body li { padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .svc .body a { text-decoration: none; font-size: 14px; color: var(--blue); font-weight: 400; }
+  .svc .body a:hover { text-decoration: underline; }
+  .svc .all { display: inline-block; margin-top: 12px; color: var(--blue); font-weight: 700; font-size: 13.5px; text-decoration: none; }
+  .svc .all:hover { text-decoration: underline; }
+  .services .explore { display: inline-block; margin-top: 22px; background: var(--blue); color: #fff; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 5px; font-size: 14px; }
+  .services .explore:hover { background: var(--blue-dark); }
+
+  /* Alternating image / text blocks (the reference's repeated pattern) */
+  .feature { display: flex; align-items: stretch; background: #fff; }
+  .feature.rev { flex-direction: row-reverse; }
+  .feature .txt { flex: 1; padding: 56px 44px; align-self: center; }
+  .feature img { width: 46%; object-fit: cover; flex: none; display: block; }
+  .feature h2 { font-size: 30px; color: var(--ink); margin-bottom: 14px; line-height: 1.15; }
+  .feature p { color: var(--muted); font-size: 15.5px; line-height: 1.6; max-width: 560px; font-weight: 400; }
+  .feature .acts { margin-top: 20px; display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+  .feature .btn { background: var(--blue); color: #fff; text-decoration: none; font-weight: 700; padding: 12px 22px; border-radius: 5px; font-size: 14px; }
+  .feature .btn:hover { background: var(--blue-dark); }
+  .feature .textlink { color: var(--blue); font-weight: 700; text-decoration: none; font-size: 14.5px; }
+  .feature .textlink:hover { text-decoration: underline; }
+  .feature.alt { background: var(--soft); }
+
+  footer { background: var(--navy); color: #c4d6de; padding: 32px 44px; font-size: 13px; }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer a { color: #c4d6de; text-decoration: none; margin-right: 18px; }
+  footer a:hover { color: #fff; }
+  footer .fine { margin-top: 16px; color: #7fa3b1; }
+
+  /* Chatbot: dedicated 30% right column */
+  #chat-panel { width: 30%; background: #fff; border-left: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; }
+  #chat-head { background: var(--blue); color: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+  #chat-head .av { width: 30px; height: 30px; border-radius: 50%; background: #fff; flex: none;
+    background-image: radial-gradient(circle at 50% 45%, var(--blue) 40%, #fff 42%); }
+  #chat-head .t { font-weight: 700; }
+  #chat-head .s { font-size: 12px; opacity: .9; }
+  #chat-msgs { flex: 1; padding: 14px; overflow-y: auto; font-size: 14px; background: #fafcfe; }
+  .msg { margin-bottom: 10px; padding: 10px 13px; border-radius: 10px; max-width: 88%; white-space: pre-wrap; line-height: 1.45; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  .bot { background: #eaf4fb; color: #10344a; border-bottom-left-radius: 3px; }
+  .user { background: var(--blue); color: #fff; margin-left: auto; border-bottom-right-radius: 3px; }
+  .msg.typing { color: #789; font-style: italic; background: #eef4f9; box-shadow: none; }
+  #chat-input { display: flex; border-top: 1px solid var(--line); padding: 8px; gap: 8px; background: #fff; }
+  #chat-input input { flex: 1; border: 1px solid var(--line); border-radius: 5px; padding: 10px 14px; outline: none; font-family: inherit; font-size: 14px; }
+  #chat-input input:focus { border-color: var(--blue); }
+  #chat-input input:disabled { background: #f2f4f6; }
+  #chat-input button { border: none; background: var(--blue); color: #fff; padding: 0 18px; border-radius: 5px; cursor: pointer; font-weight: 700; }
+  #chat-input button:hover { background: var(--blue-dark); }
+  #chat-input button:disabled { background: #8fbfe0; cursor: default; }
+</style>
+</head>
+<body>
+
+<div style="background:#12333f; color:#fff; text-align:center; padding:7px 16px; font-size:12.5px; letter-spacing:.02em;">Demo site with fictional data — not a real medical service.</div>
+
+<div class="utility">
+  <div class="locs"><span>Locations:</span>
+    <a href="#">New York</a><a href="#">Los Angeles</a><a href="#">Chicago</a><a href="#">Houston</a><a href="#">Phoenix</a>
+  </div>
+  <div class="links">
+    <a href="#">1800-000-000</a>
+  </div>
+</div>
+
+<header>
+  <a href="/" class="brand"><span class="dot"></span> Bluebell Clinic</a>
+  <nav>
+    <a href="#">Find a Doctor</a><a href="#">Locations</a>
+    <a href="#">Health Library</a>
+  </nav>
+  <div class="spacer"></div>
+  <span class="search" title="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+  <a href="https://karancodes95.github.io" target="_blank" rel="noopener" class="appt">Know more</a>
+</header>
+
+<main>
+  <div id="left">
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Health care that puts you first.</h1>
+      <p>From your first visit to lifelong care, Bluebell brings expert doctors, modern facilities, and a team that knows you by name.</p>
+      <div class="links">
+        <a href="#">Our Doctors</a><a href="#">Locations &amp; Directions</a><a href="#">Appointments</a>
+      </div>
+    </section>
+
+    <!-- Featured services (accordion) -->
+    <section class="services">
+      <div class="eyebrow">Featured Services</div>
+      <h2>Expert care across every specialty</h2>
+      <div class="svc-grid">
+
+        <details class="svc">
+          <summary>
+            <h3>Heart Care</h3>
+            <div class="desc">Prevention, diagnosis and advanced treatment</div>
+            <span class="toggle">Show services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="body">
+            <ul>
+              <li><a href="#">Arrhythmia</a></li><li><a href="#">Heart Failure</a></li>
+              <li><a href="#">Heart Valve Disease</a></li><li><a href="#">Preventive Cardiology</a></li>
+              <li><a href="#">Vascular Disease</a></li><li><a href="#">Cardiac Rehab</a></li>
+            </ul>
+            <a class="all" href="#">View all Heart Care services →</a>
+          </div>
+        </details>
+
+        <details class="svc">
+          <summary>
+            <h3>Cancer Care</h3>
+            <div class="desc">Screening, treatment and support</div>
+            <span class="toggle">Show services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="body">
+            <ul>
+              <li><a href="#">Breast Cancer</a></li><li><a href="#">Colorectal Cancer</a></li>
+              <li><a href="#">Lung Cancer</a></li><li><a href="#">Skin Cancer</a></li>
+              <li><a href="#">Genetic Counseling</a></li><li><a href="#">Chemotherapy</a></li>
+            </ul>
+            <a class="all" href="#">View all Cancer Care services →</a>
+          </div>
+        </details>
+
+        <details class="svc">
+          <summary>
+            <h3>Digestive Care</h3>
+            <div class="desc">Gut health, from reflux to surgery</div>
+            <span class="toggle">Show services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="body">
+            <ul>
+              <li><a href="#">Acid Reflux</a></li><li><a href="#">Irritable Bowel Syndrome</a></li>
+              <li><a href="#">Colonoscopy</a></li><li><a href="#">Liver Care</a></li>
+              <li><a href="#">Nutrition</a></li><li><a href="#">Inflammatory Bowel Disease</a></li>
+            </ul>
+            <a class="all" href="#">View all Digestive Care services →</a>
+          </div>
+        </details>
+
+        <details class="svc">
+          <summary>
+            <h3>Children&rsquo;s Services</h3>
+            <div class="desc">Well-checks and pediatric care</div>
+            <span class="toggle">Show services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="body">
+            <ul>
+              <li><a href="#">Pediatric Primary Care</a></li><li><a href="#">Newborn Care</a></li>
+              <li><a href="#">Childhood Asthma</a></li><li><a href="#">Vaccinations</a></li>
+              <li><a href="#">Growth &amp; Development</a></li><li><a href="#">Pediatric Allergy</a></li>
+            </ul>
+            <a class="all" href="#">View all Children&rsquo;s services →</a>
+          </div>
+        </details>
+
+        <details class="svc">
+          <summary>
+            <h3>Neurology</h3>
+            <div class="desc">Brain, nerve and spine conditions</div>
+            <span class="toggle">Show services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="body">
+            <ul>
+              <li><a href="#">Migraine</a></li><li><a href="#">Epilepsy &amp; Seizures</a></li>
+              <li><a href="#">Stroke Care</a></li><li><a href="#">Sleep Disorders</a></li>
+              <li><a href="#">Memory Care</a></li><li><a href="#">Parkinson&rsquo;s Disease</a></li>
+            </ul>
+            <a class="all" href="#">View all Neurology services →</a>
+          </div>
+        </details>
+
+        <details class="svc">
+          <summary>
+            <h3>Ear, Nose &amp; Throat</h3>
+            <div class="desc">Hearing, sinus and voice care</div>
+            <span class="toggle">Show services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="body">
+            <ul>
+              <li><a href="#">Hearing Loss</a></li><li><a href="#">Sinusitis</a></li>
+              <li><a href="#">Sleep Apnea</a></li><li><a href="#">Voice Therapy</a></li>
+              <li><a href="#">Allergy Care</a></li><li><a href="#">Tinnitus</a></li>
+            </ul>
+            <a class="all" href="#">View all ENT services →</a>
+          </div>
+        </details>
+
+      </div>
+      <a class="explore" href="#">Explore all services</a>
+    </section>
+
+    <!-- Feature: symptom / virtual visit — text left, image right (white) -->
+    <section class="feature">
+      <div class="txt">
+        <h2>Not feeling your best?</h2>
+        <p>A fever that won't quit, a nagging cough, or a stomach that's off? Start with a virtual visit — a Bluebell clinician can assess your symptoms and point you to the right next step, often without a trip in.</p>
+        <div class="acts"><a class="btn" href="#">Start a virtual visit</a></div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=900&q=80" alt="Virtual visit">
+    </section>
+
+    <!-- Feature: choose the right care — image left -->
+    <section class="feature rev alt">
+      <div class="txt">
+        <h2>Unsure which visit you need?</h2>
+        <p>Answer a few quick questions and we'll point you to the right option — a chat with the assistant, a virtual visit, urgent care, or a scheduled appointment.</p>
+        <div class="acts"><a class="textlink" href="#">Help me choose →</a></div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=80" alt="Choosing care">
+    </section>
+
+    <!-- Feature: get care — image right -->
+    <section class="feature">
+      <div class="txt">
+        <h2>Getting care is simple</h2>
+        <p>Book online in minutes, message your care team, or walk into any Bluebell location. However you reach us, your records and history come with you.</p>
+        <div class="acts">
+          <a class="btn" href="#">Book an appointment</a>
+          <a class="textlink" href="#">Message your team →</a>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=900&q=80" alt="Get care">
+    </section>
+
+    <!-- Feature: human care statement — image left -->
+    <section class="feature rev alt">
+      <div class="txt">
+        <h2>We treat people, not just charts.</h2>
+        <p>Care at Bluebell starts with listening. Your doctor takes the time to understand your goals and your day-to-day, so the plan fits your life — not just your diagnosis.</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80" alt="Personal care">
+    </section>
+
+    <!-- Feature: one team — image right -->
+    <section class="feature">
+      <div class="txt">
+        <h2>One connected team behind you</h2>
+        <p>Your family doctor, specialists, nurses, and labs share a single record and talk to each other — so nothing slips through the cracks and you never repeat your story twice.</p>
+        <div class="acts"><a class="textlink" href="#">Meet the team →</a></div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=900&q=80" alt="Care team">
+    </section>
+
+    <!-- Feature: innovation — image left -->
+    <section class="feature rev alt">
+      <div class="txt">
+        <h2>Better care, always in the making</h2>
+        <p>We keep learning — adopting new tools, treatments, and technology as they prove themselves — so the care you get today keeps getting better tomorrow.</p>
+        <div class="acts"><a class="textlink" href="#">Our approach →</a></div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=900&q=80" alt="Innovation">
+    </section>
+
+    <!-- Feature: health library — image right -->
+    <section class="feature">
+      <div class="txt">
+        <h2>Health answers you can rely on</h2>
+        <p>Plain-language articles on conditions, treatments, and healthy living — written and reviewed by Bluebell clinicians, so you always know it's trustworthy.</p>
+        <div class="acts">
+          <a class="btn" href="#">Browse the health library</a>
+          <a class="textlink" href="#">Read the latest →</a>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=900&q=80" alt="Health library">
+    </section>
+
+    <footer>
+      <div class="row">
+        <div>
+          <a href="#">Find a Doctor</a><a href="#">Locations</a><a href="#">Services</a>
+          <a href="#">Patient Portal</a><a href="#">Careers</a><a href="#">Contact</a>
+        </div>
+        <div><a href="#">1800-000-000</a></div>
+      </div>
+      <div class="fine">Bluebell Clinic — demo site with fictional data. Not a real medical service.</div>
+    </footer>
+  </div>
+
+  <!-- Chatbot: dedicated 30% right column -->
+  <div id="chat-panel">
+    <div id="chat-head">
+      <span class="av"></span>
+      <div><div class="t">Bluebell Assistant</div><div class="s">Here to help, 24/7</div></div>
+    </div>
+    <div id="chat-msgs">
+      <div class="msg bot">Hi! I can help with appointments, refills, lab reports and insurance. How can I help?</div>
+    </div>
+    <div id="chat-input">
+      <input id="chat-text" type="text" placeholder="Type a message..." autocomplete="off" />
+      <button id="chat-send">Send</button>
+    </div>
+  </div>
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
