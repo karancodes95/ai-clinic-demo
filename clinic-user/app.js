@@ -6,7 +6,7 @@
 // BASE_URL: where ai_integration_python runs. API_KEY must match the backend's
 // API_KEY in .env. This is the low-value bot-gate key (not a real secret);
 // for a public deploy, proxy the call instead of shipping any key to the page.
-const BASE_URL = "https://demo-api.bytcra.com";  // hosted backend (GitHub Pages serves this page cross-origin)
+const BASE_URL = "https://demo-api.bytcra.com/clinic";  // hosted backend (GitHub Pages serves this page cross-origin)
 const API_KEY = "7ea2b12e2dc0289f77373ac47cd34d7998ec13ec977de8e624491b1374d6488b";
 const VERTICAL = "healthcare";
 // -------------------------------------------------------------------------
