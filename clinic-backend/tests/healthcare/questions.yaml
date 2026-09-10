@@ -1,0 +1,127 @@
+# Healthcare vertical — question pool.
+# Single-patient scoping: each session holds exactly ONE signed-in patient
+# (James Anderson) and only his records, so "my"/"I" always resolves to the
+# rows in these tables — no patient name/id filter is ever needed and there is
+# no cross-patient access. The expected answers below are DETERMINISTIC seed
+# facts (see app/vertical/healthcare/seed.py); dates are anchored to NOW() at
+# seed time but the counts/values asserted here are fixed.
+#
+# Schema per row:
+#   id:                stable identifier
+#   question:          the user input
+#   category:          lookup | aggregate | filter_time | compare |
+#                      multi_step | ambiguous | out_of_scope | adversarial
+#   source:            "scraped:<url>" | self | synthetic
+#   sql_contains:      list of substrings that must appear in the generated SQL
+#                      (case-insensitive, order-independent). Optional.
+#   answer_contains:   list of tokens that must appear in the NL answer.
+#                      Each element is either a literal string (must appear)
+#                      or a list of alternatives (any-of). Case-insensitive.
+#                      Optional.
+#   notes:             free text
+
+questions:
+
+  # -- Batch 1 starter set (5). Prove the harness. Expand to 12 after green. --
+
+  - id: hc-001
+    question: "How many active prescriptions do I have?"
+    category: aggregate
+    source: self
+    sql_contains: ["prescriptions", "active"]
+    answer_contains:
+      - ["3", "three"]
+    notes: "Seed: 3 active prescriptions."
+
+  - id: hc-002
+    question: "How many refills are left on my Lisinopril?"
+    category: lookup
+    source: self
+    sql_contains: ["prescriptions", "Lisinopril"]
+    answer_contains:
+      - ["2", "two"]
+    notes: "Seed: Lisinopril has 2 refills remaining."
+
+  - id: hc-003
+    question: "What was my most recent Hemoglobin A1C result?"
+    category: lookup
+    source: self
+    sql_contains: ["lab_results"]
+    answer_contains: ["6.8"]
+    notes: "Seed: Hemoglobin A1C = 6.8%."
+
+  - id: hc-004
+    question: "What is my LDL cholesterol value?"
+    category: lookup
+    source: self
+    sql_contains: ["lab_results"]
+    answer_contains: ["138"]
+    notes: "Seed: LDL Cholesterol = 138 mg/dL."
+
+  - id: hc-005
+    question: "Which of my lab results is still preliminary?"
+    category: filter
+    source: self
+    sql_contains: ["lab_results", "preliminary"]
+    answer_contains: ["Triglycerides"]
+    notes: "Seed: only Triglycerides is preliminary."
+
+  # -- Batch 1 continued (hc-006 .. hc-012). --
+
+  - id: hc-006
+    question: "Who is the doctor for my next appointment?"
+    category: multi_step
+    source: self
+    sql_contains: ["appointments", "doctors"]
+    answer_contains: ["Torres"]
+    notes: "Seed: next appointment (~5 days out) is with Dr. Miguel Torres."
+
+  - id: hc-007
+    question: "How many upcoming appointments do I have?"
+    category: filter_time
+    source: self
+    sql_contains: ["appointments"]
+    answer_contains:
+      - ["2", "two"]
+    notes: "Seed: 2 future scheduled appointments (Torres ~5d, Whitman ~12d)."
+
+  - id: hc-008
+    question: "List all my active medications."
+    category: lookup
+    source: self
+    sql_contains: ["prescriptions"]
+    answer_contains: ["Lisinopril", "Atorvastatin", "Metformin"]
+    notes: "Seed: 3 active meds (Lisinopril, Atorvastatin, Metformin)."
+
+  - id: hc-009
+    question: "Have I had any no-show appointments?"
+    category: lookup
+    source: self
+    sql_contains: ["appointments", "no_show"]
+    answer_contains: ["Flu"]
+    notes: "Seed: one no_show — the Flu shot (~200 days ago)."
+
+  - id: hc-010
+    question: "What specialties do my doctors cover?"
+    category: lookup
+    source: self
+    sql_contains: ["doctors"]
+    answer_contains: ["Cardiology", "Family Medicine"]
+    notes: "Seed: two specialties — Cardiology (Torres), Family Medicine (Whitman)."
+
+  - id: hc-011
+    question: "How many lab results do I have in total?"
+    category: aggregate
+    source: self
+    sql_contains: ["lab_results"]
+    answer_contains:
+      - ["4", "four"]
+    notes: "Seed: 4 lab results."
+
+  - id: hc-012
+    question: "Which of my medications has the most refills remaining?"
+    category: multi_step
+    source: self
+    sql_contains: ["prescriptions", "refills_remaining"]
+    answer_contains: ["Atorvastatin"]
+    notes: "Seed: Atorvastatin has the most refills (3)."

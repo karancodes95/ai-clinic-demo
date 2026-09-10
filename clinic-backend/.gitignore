@@ -1,0 +1,117 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtualenv / env managers
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.pdm-python
+.pdm-build/
+.pixi
+__pypackages__/
+
+# Environments / secrets
+.env
+.env.*
+!.env.example
+.envrc
+*.pem
+*.key
+.pypirc
+
+# Testing / coverage
+.pytest_cache/
+.cache
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py.cover
+nosetests.xml
+cover/
+
+# Type checkers / linters
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pyre/
+.pytype/
+
+# Cython
+cython_debug/
+
+# Jupyter / IPython
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Redis / queues
+*.rdb
+*.aof
+*.pid
+
+# Sphinx / mkdocs
+docs/_build/
+/site
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+tempCodeRunnerFile.py
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local DB / logs
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
+*.db
+*.log
+logs/
+
+# Adversarial tests are withheld from the public repo by design (see README).
+# Kept locally so `pytest` still runs the full suite on the maintainer's machine.
+tests/healthcare/test_attacks.py
+
+# Internal planning notes, not part of the published project.
+PLAN.md

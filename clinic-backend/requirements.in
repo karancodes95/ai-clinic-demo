@@ -1,0 +1,17 @@
+fastapi==0.141.1
+uvicorn[standard]==0.52.3
+asyncpg==0.30.0
+pydantic==2.13.4
+pydantic-settings==2.15.0
+email-validator==2.2.0
+python-dotenv==1.2.2
+google-genai==0.3.0
+sqlglot==25.34.0
+pytest==8.3.4
+pytest-asyncio==0.26.0
+httpx==0.28.1
+pyyaml==6.0.2
+pyjwt==2.13.0
+argon2-cffi==23.1.0
+claude-agent-sdk==0.2.140
+idna>=3.18  # httpx2 (transitive) requires >=3.18; pin the floor so it resolves
