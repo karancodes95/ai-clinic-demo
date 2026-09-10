@@ -7,7 +7,7 @@
 // API_KEY in .env. This is the low-value bot-gate key (not a real secret);
 // for a public deploy, proxy the call instead of shipping any key to the page.
 const BASE_URL = "https://demo-api.bytcra.com";  // hosted backend (GitHub Pages serves this page cross-origin)
-const API_KEY = "dev-only-static-key-change-me";
+const API_KEY = "f7d4d4f537c2d9e808510931891fbd6cb657db7768f635d1475bfa06b1333a8d";
 const VERTICAL = "healthcare";
 // -------------------------------------------------------------------------
 
