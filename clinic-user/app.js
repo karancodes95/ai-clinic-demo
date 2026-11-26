@@ -91,9 +91,7 @@ async function send() {
       await res.json().catch(() => ({}));
       botEl.className = "msg bot";
       botEl.innerHTML = renderMarkdown(
-        "You've reached today's message limit for this demo. See more of my work at " +
-        "https://github.com/karancodes95 or connect on " +
-        "https://www.linkedin.com/in/karanjtv/"
+        "You've reached today's message limit for this demo. See more at https://bytcra.com"
       );
       return;
     }
