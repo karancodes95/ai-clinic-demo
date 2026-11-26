@@ -92,7 +92,7 @@ async function send() {
       botEl.className = "msg bot";
       botEl.innerHTML = renderMarkdown(
         "You've reached today's message limit for this demo. See more of my work at " +
-        "https://karancodes95.github.io or connect on " +
+        "https://github.com/karancodes95 or connect on " +
         "https://www.linkedin.com/in/karanjtv/"
       );
       return;
