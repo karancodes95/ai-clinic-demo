@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ask Clinic: AI Healthcare Assistant Demo</title>
+  <link rel="icon" type="image/png" href="clinic-user/favicon.png">
   <meta name="description" content="AI-powered clinic assistant demo. Fictional data, not a real medical service.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://karancodes95.github.io/ai-clinic-demo/">
@@ -36,6 +37,7 @@
       justify-content: center;
       padding: 2rem;
     }
+    main { display: flex; flex-direction: column; align-items: center; }
     h1 { font-size: 2rem; margin-bottom: 0.5rem; }
     p.tagline { color: var(--muted); margin-bottom: 2.5rem; text-align: center; max-width: 32rem; }
     .cards { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
@@ -54,10 +56,11 @@
     .card h2 { font-size: 1.15rem; margin-bottom: 0.4rem; }
     .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.4; }
     footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; text-align: center; }
-    footer a { color: var(--accent); text-decoration: none; }
+    footer a { color: var(--accent); text-decoration: underline; }
   </style>
 </head>
 <body>
+  <main>
   <h1>Ask Clinic</h1>
   <p class="tagline">AI-powered clinic assistant demo. Fictional data, not a real medical service.</p>
   <div class="cards">
@@ -70,6 +73,7 @@
       <p>Staff view: beds, rosters, inventory, and chart summaries.</p>
     </a>
   </div>
+  </main>
   <footer>
     Built by Karan Jatav ·
     <a href="https://github.com/karancodes95">GitHub</a> ·
